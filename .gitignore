@@ -1,7 +1,9 @@
 # Recursos a ingnorar
+HELP.md
 Servers
 .metadata
 .settings
+.factorypath
 target
 .classpath
 .project
