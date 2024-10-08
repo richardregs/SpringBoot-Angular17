@@ -1,0 +1,14 @@
+# Recursos a ingnorar
+Servers
+.metadata
+.settings
+target
+.classpath
+.project
+#.tern-project
+RemoteSystemsTempFiles
+/.metadata/
+
+
+Angular/app-fe-gestion-pedidos-v1/node_modules
+Angular/app-fe-gestion-pedidos-v2/node_modules
