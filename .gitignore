@@ -7,11 +7,10 @@ target
 .project
 #.tern-project
 RemoteSystemsTempFiles
-/.metadata/
-mvnw
-mvnw.cmd
-
-/.mvn
+app-be-gestion-pedidos-rg/.metadata/
+app-be-gestion-pedidos-rg/mvnw
+app-be-gestion-pedidos-rg/mvnw.cmd
+app-be-gestion-pedidos-rg/.mvn
 
 Angular/app-fe-gestion-pedidos-v1/node_modules
 Angular/app-fe-gestion-pedidos-v2/node_modules
