@@ -1,16 +1,18 @@
 # Recursos a ingnorar
-/HELP.md
+
 Servers
 .metadata
 .settings
-/.factorypath
 target
 .classpath
 .project
 #.tern-project
 RemoteSystemsTempFiles
 /.metadata/
-/.mvn/
+
+app-be-gestion-pedidos-rg/.mvn/
+app-be-gestion-pedidos-rg/.factorypath
+app-be-gestion-pedidos-rg/HELP.md
 
 Angular/app-fe-gestion-pedidos-v1/node_modules
 Angular/app-fe-gestion-pedidos-v2/node_modules
