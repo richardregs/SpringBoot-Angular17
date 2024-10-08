@@ -13,6 +13,8 @@ RemoteSystemsTempFiles
 app-be-gestion-pedidos-rg/.mvn/
 app-be-gestion-pedidos-rg/.factorypath
 app-be-gestion-pedidos-rg/HELP.md
+app-be-gestion-pedidos-rg/mvnw
+app-be-gestion-pedidos-rg/mvnw.cmd
 
 Angular/app-fe-gestion-pedidos-v1/node_modules
 Angular/app-fe-gestion-pedidos-v2/node_modules
