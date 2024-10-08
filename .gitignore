@@ -10,7 +10,7 @@ target
 #.tern-project
 RemoteSystemsTempFiles
 /.metadata/
-
+/.mvn/
 
 Angular/app-fe-gestion-pedidos-v1/node_modules
 Angular/app-fe-gestion-pedidos-v2/node_modules
