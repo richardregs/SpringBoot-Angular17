@@ -4,17 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import pe.edu.galaxy.traning.java.fs.rg.app_be_gestion_pedidos_rg.entity.ClienteEntity;
 
-public interface ClienteService {
+public interface ClienteService extends GenericService<ClienteEntity>{
 	
-	List<ClienteEntity> findAll();
+	Optional<ClienteEntity> findByRuc(String ruc) throws ServiceException;
+	List<ClienteEntity> findByLikeRazonSocial(String razonSocial) throws ServiceException;
 	
-	Optional<ClienteEntity> findById(Long id);
-	
-	List<ClienteEntity> findByLikeRazonSocial(String razonSocial);
-	
-	ClienteEntity save(ClienteEntity clienteEntity);
-	
-	ClienteEntity update(ClienteEntity clienteEntity);
-	
-	void delete(Long id);
 }

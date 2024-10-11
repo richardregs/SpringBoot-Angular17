@@ -30,54 +30,90 @@ public class ClienteRestContreller {
 	
 	@GetMapping
 	public ResponseEntity<List<ClienteEntity>> findAll(){
-		List<ClienteEntity> lstClienteEntity = clienteService.findAll();
-		if (lstClienteEntity.isEmpty()) {
-			return ResponseEntity.noContent().build();
+		try {
+			ClienteEntity prmClienteEntity = new ClienteEntity();
+			List<ClienteEntity> lstClienteEntity = clienteService.findLikeObject(prmClienteEntity);
+			if (lstClienteEntity.isEmpty()) {
+				return ResponseEntity.noContent().build();
+			}
+			return ResponseEntity.ok(lstClienteEntity);
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
 		}
-		return ResponseEntity.ok(lstClienteEntity);
+		
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ClienteEntity> findById(@PathVariable("id") Long id){
-		Optional<ClienteEntity> optClienteEntity = clienteService.findById(id);
-		if (optClienteEntity.isEmpty()) {
-			return ResponseEntity.noContent().build();
+		try {
+			ClienteEntity prmClienteEntity = new ClienteEntity();
+			prmClienteEntity.setId(id);
+			Optional<ClienteEntity> optClienteEntity = clienteService.findById(prmClienteEntity);
+			if (optClienteEntity.isEmpty()) {
+				return ResponseEntity.noContent().build();
+			}
+			return ResponseEntity.ok(optClienteEntity.get());
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
 		}
-		return ResponseEntity.ok(optClienteEntity.get());
+		
 	}
 	
 	@GetMapping("/by-razonSocial")
-	public ResponseEntity<List<ClienteEntity>> findByLikeRazonSocial(@RequestParam(value="razonSocial", defaultValue="") String razonSocial){
-		List<ClienteEntity> ListClienteEntity = clienteService.findByLikeRazonSocial(razonSocial);
-		if (ListClienteEntity.isEmpty()) {
-			return ResponseEntity.noContent().build();
+	public ResponseEntity<List<ClienteEntity>> findByLikeRazonSocial(
+			@RequestParam(value="razonSocial", defaultValue="") String razonSocial){
+		try {
+			List<ClienteEntity> ListClienteEntity = clienteService.findByLikeRazonSocial(razonSocial);
+			if (ListClienteEntity.isEmpty()) {
+				return ResponseEntity.noContent().build();
+			}
+			return ResponseEntity.ok(ListClienteEntity);
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
 		}
-		return ResponseEntity.ok(ListClienteEntity);
+		
 	}
 	
 	@PostMapping
 	public ResponseEntity<ClienteEntity> save(@RequestBody ClienteEntity clienteEntity){
-		ClienteEntity rClienteEntity = clienteService.save(clienteEntity);
-		if (isNull(rClienteEntity)) {
-			return ResponseEntity.badRequest().build();
+		try {
+			ClienteEntity rClienteEntity = clienteService.save(clienteEntity);
+			if (isNull(rClienteEntity)) {
+				return ResponseEntity.badRequest().build();
+			}
+			return ResponseEntity.status(HttpStatus.CREATED).body(rClienteEntity);
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(rClienteEntity);
+		
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<ClienteEntity> update(@PathVariable("id") Long id, @RequestBody ClienteEntity clienteEntity){
-		clienteEntity.setId(id);
-		ClienteEntity rClienteEntity = clienteService.update(clienteEntity);
-		if (isNull(rClienteEntity)) {
-			return ResponseEntity.badRequest().build();
+		try {
+			clienteEntity.setId(id);
+			ClienteEntity rClienteEntity = clienteService.update(clienteEntity);
+			if (isNull(rClienteEntity)) {
+				return ResponseEntity.badRequest().build();
+			}
+			return ResponseEntity.ok(rClienteEntity);
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
 		}
-		return ResponseEntity.ok(rClienteEntity);
+		
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable("id") Long id){
-		clienteService.delete(id); 
-		return ResponseEntity.ok().build();
+		try {
+			ClienteEntity prmClienteEntity = new ClienteEntity();
+			prmClienteEntity.setId(id);
+			clienteService.delete(prmClienteEntity); 
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
+		}
+		
 	}
 
 }
