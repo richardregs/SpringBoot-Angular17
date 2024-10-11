@@ -10,35 +10,36 @@ import pe.edu.galaxy.traning.java.fs.rg.app_be_gestion_pedidos_rg.repository.Cli
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
-	
+
 	private ClienteRepository clienteRepository;
-	
+
 	public ClienteServiceImpl(ClienteRepository clienteRepository){
 		this.clienteRepository = clienteRepository;
 	}
+	
+	@Override
+	public Optional<ClienteEntity> findById(ClienteEntity clienteEntity) throws ServiceException {
+		return clienteRepository.findById(clienteEntity.getId());
+	}
 
 	@Override
-	public List<ClienteEntity> findAll() {
+	public List<ClienteEntity> findLikeObject(ClienteEntity t) throws ServiceException {
 		return clienteRepository.findAll();
 	}
 
 	@Override
-	public ClienteEntity save(ClienteEntity clienteEntity) {
-		return clienteRepository.save(clienteEntity);
+	public ClienteEntity save(ClienteEntity clienteEntity) throws ServiceException {
+		
+		try {
+			return clienteRepository.save(clienteEntity);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+		
 	}
 
 	@Override
-	public Optional<ClienteEntity> findById(Long id) {
-		return clienteRepository.findById(id);
-	}
-
-	@Override
-	public List<ClienteEntity> findByLikeRazonSocial(String razonSocial) {
-		return clienteRepository.findByLikeRazonSocial("%"+razonSocial+"%");
-	}
-
-	@Override
-	public ClienteEntity update(ClienteEntity clienteEntity) { //Idempotente
+	public ClienteEntity update(ClienteEntity clienteEntity) throws ServiceException {
 		Optional<ClienteEntity> rClienteEntity = clienteRepository.findById(clienteEntity.getId());
 		if (rClienteEntity.isPresent()) {
 			ClienteEntity prmClienteEntity = rClienteEntity.get();
@@ -49,14 +50,33 @@ public class ClienteServiceImpl implements ClienteService {
 	}
 
 	@Override
-	public void delete(Long id) {
-		//clienteRepository.deleteById(id);//fisico
-		Optional<ClienteEntity> rClienteEntity = clienteRepository.findById(id);
+	public Boolean delete(ClienteEntity clienteEntity) throws ServiceException {
+		Optional<ClienteEntity> rClienteEntity = clienteRepository.findById(clienteEntity.getId());
 		if (rClienteEntity.isPresent()) {
 			ClienteEntity prmClienteEntity = rClienteEntity.get();
 			prmClienteEntity.setEstado("0"); //lógico
 			clienteRepository.save(prmClienteEntity);
+			return true;
 		}
+		return false;
 	}
 
+	@Override
+	public Optional<ClienteEntity> findByRuc(String ruc) throws ServiceException {
+		// TODO Auto-generated method stub
+		return Optional.empty();
+	}
+
+	@Override
+	public List<ClienteEntity> findByLikeRazonSocial(String razonSocial) throws ServiceException {
+		try {
+			return clienteRepository.findByLikeRazonSocial("%"+razonSocial+"%");
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+	}	
+	
 }
+
+
+
